@@ -1,0 +1,16 @@
+FROM python:3.8.10-alpine AS build-stage
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --user -r requirements.txt
+
+# Ensure logging is up to date despite possible buffering
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /opt/app
+
+# Move sourcefiles
+COPY . .
+
+EXPOSE 80
+CMD ["/bin/sh", "cd apollo_tms", "gunicorn myproject.wsgi"]

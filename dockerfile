@@ -1,22 +1,14 @@
-FROM python:3.8.10-alpine AS build-stage
+FROM python:3.8.10-alpine
 
 # Install dependencies
 COPY requirements.txt .
+
+RUN apk update && apk add python3-dev \
+                        gcc \
+                        libc-dev \
+                        libffi-dev
+RUN pip install --upgrade pip
 RUN pip install --user -r requirements.txt
 
-
-# PRODUCTION STAGE
-FROM python:3.8.10-alpine
-
-# Ensure logging is up to date despite possible buffering
-ENV PYTHONUNBUFFERED 1
-
-WORKDIR /opt/app
-
-# Move sourcefiles
-COPY . .
-# Copy resources from build env
-COPY --from=build-stage /root/.local/ /usr/local/
-
-
-CMD ["/bin/bash"]
+# Copy source code
+#COPY . .

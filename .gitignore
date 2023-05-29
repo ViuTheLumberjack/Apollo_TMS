@@ -5,3 +5,11 @@ lib64
 share
 data
 .env
+
+# Django stuff:
+*.log
+*.pot
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]

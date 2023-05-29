@@ -1,18 +1,19 @@
 # APOLLO Task Managment System
 
-Progetto per il corso di PPM nell'a.a. 2023.
+Project for the course of Multimedia Design and Production at the University of Florence.
 
 ## Getting Started 🚀
 
-1. Creare un file .env nella root del progetto con le seguenti variabili d'ambiente:
+1. Create a .env file in the root of the project with the following variables:
 
 ```
-POSTGRES_PASSWORD
-POSTGRES_DB
-POSTGRES_HOST
-POSTGRES_PORT
 POSTGRES_USER
+POSTGRES_PASSWORD
+POSTGRES_DB=taskmanager
+POSTGRES_HOST=database
+POSTGRES_PORT
+SECRET_KEY
 ```
+The ones not specified are up to you. The SECRET_KEY is the Django secret key.
 
-2. Eseguire il comando `docker-compose up` per avviare il progetto.
-3. Al termine dell'avvio, usare normalmente i comandi Django.
+2. Execute the command `docker-compose up` to start the project in development mode.
