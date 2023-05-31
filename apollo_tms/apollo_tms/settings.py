@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+APPEND_SLASH=True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,5 +163,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'REGISTER_SERIALIZER': 'apollo_account.serializers.ApolloRegisterSerializer',
     # 'PAGE_SIZE': 15,
 }

@@ -1,9 +1,30 @@
 from django.db import models
+from polymorphic.models import PolymorphicModel
 from apollo_account.models import User
 from django.contrib.auth.models import Group
 
 # Create your models here.
-class Task(models.Model):
+class Collection(models.Model):
+    """
+    Collection model
+    """
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    owner = models.ForeignKey(Group, on_delete=models.CASCADE)
+    deletable = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        db_table = 'collections'
+        ordering = ['-created_at']
+        verbose_name = 'Collection'
+        verbose_name_plural = 'Collections'
+
+class Task(PolymorphicModel):
     """
     Task model
     """
@@ -16,8 +37,11 @@ class Task(models.Model):
 
     ]
     created_at = models.DateTimeField(auto_now_add=True)
+    start_date = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    subtasks = models.ForeignKey('self', on_delete=models.CASCADE)
+    progress = models.FloatField(default=0.0)
+    subtasks = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -26,20 +50,19 @@ class Task(models.Model):
         db_table = 'task'
         ordering = ['-created_at']
         verbose_name = 'Task'
-        verbose_name_plural = 'tasks'
+        verbose_name_plural = 'Tasks'
 
 class Assignment(models.Model):
     """
     Assignment model
     """
     users = models.ForeignKey(User, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    task = models.ForeignKey('tasks.Task', on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.group
+        return f'{self.task} assigned to {self.users}'
 
     class Meta:
         db_table = 'assignments'
@@ -51,8 +74,7 @@ class RecurrentTask(Task):
     """
     Recurrent Task model
     """
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True, blank=True)
     frequency = models.CharField(max_length=255)
 
     class Meta:
@@ -65,7 +87,6 @@ class OneTimeTask(Task):
     """
     One Time Task model
     """
-
 
     class Meta:
         db_table = 'one-time-tasks'
@@ -84,23 +105,3 @@ class DeadlineTask(Task):
         ordering = ['-created_at']
         verbose_name = 'Deadline Task'
         verbose_name_plural = 'Deadline Tasks'
-
-class Collection(models.Model):
-    """
-    Collection model
-    """
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    tasks = models.ManyToManyField(Task)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        db_table = 'collections'
-        ordering = ['-created_at']
-        verbose_name = 'Collection'
-        verbose_name_plural = 'Collections'

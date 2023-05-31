@@ -3,6 +3,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('api/v1/', include('dj_rest_auth.urls')),
-    path('api/v1/registration/', include('dj_rest_auth.registration.urls'))
+    path('', include('dj_rest_auth.urls'), name='login'),
+    path('registration/', include('dj_rest_auth.registration.urls'), name='registration'),
 ]
