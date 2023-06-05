@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions, generics
+from rest_framework import viewsets, generics
 from rest_framework.authentication import TokenAuthentication
 import tasks.models as models
 import tasks.serializers as serializers
@@ -11,6 +11,8 @@ from .permissions import IsGroupMember, IsGroupOwner
 from .models import Task, Assignment
 from apollo_account.models import Organization
 from apollo_account.serializers import GroupMemberIDSerializer
+
+from notifications.models import Notification
 
 # Create your views here.
 class CollectionViewSet(viewsets.ModelViewSet):
