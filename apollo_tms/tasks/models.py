@@ -1,7 +1,6 @@
 from django.db import models
 from polymorphic.models import PolymorphicModel
-from apollo_account.models import User
-from django.contrib.auth.models import Group
+from apollo_account.models import ApolloUser, Organization
 
 # Create your models here.
 class Collection(models.Model):
@@ -12,7 +11,7 @@ class Collection(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(Group, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Organization, on_delete=models.CASCADE)
     deletable = models.BooleanField(default=True)
 
     def __str__(self):
@@ -28,14 +27,14 @@ class Task(PolymorphicModel):
     """
     Task model
     """
+    class Status(models.TextChoices):
+        NEW = 'N', 'New'
+        IN_PROGRESS = 'P', 'In Progress'
+        COMPLETED = 'C', 'Completed'
+
     title = models.CharField(max_length=255)
     description = models.TextField()
-    status = [
-        ('N', 'New'),
-        ('P', 'In Progress'),
-        ('C', 'Completed'),
-
-    ]
+    task_status = models.CharField(max_length=1, choices=Status.choices, default='N')
     created_at = models.DateTimeField(auto_now_add=True)
     start_date = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -56,7 +55,7 @@ class Assignment(models.Model):
     """
     Assignment model
     """
-    users = models.ForeignKey(User, on_delete=models.CASCADE)
+    users = models.ForeignKey(ApolloUser, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -24,3 +24,13 @@ services:
             - "8000:8000"
         depends_on:
             - database
+
+    frontend:
+        container_name: anotheronebitesthedust
+        command: npm run serve
+        volumes:
+            - ./frontend:/code
+        ports:
+            - "8000:8000"
+        depends_on:
+            - web

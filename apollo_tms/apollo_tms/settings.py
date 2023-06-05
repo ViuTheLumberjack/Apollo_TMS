@@ -75,7 +75,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'apollo_tms.urls'
 
-AUTH_USER_MODEL = "apollo_account.User" 
+AUTH_USER_MODEL = "apollo_account.ApolloUser" 
 
 TEMPLATES = [
     {
