@@ -33,8 +33,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 class GroupDetailSerializer(serializers.HyperlinkedModelSerializer):
     owner = UserSerializer(many=False, read_only=True)
     members = UserSerializer(many=True, read_only=True)
-    #links = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='user-detail')
-
+    
     class Meta:
         model = Organization
         fields = ['id', 'name', 'group_visibility', 'invite_token', 'owner', 'members', 'url']
