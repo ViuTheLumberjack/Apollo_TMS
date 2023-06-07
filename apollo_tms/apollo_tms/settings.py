@@ -54,14 +54,17 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'allauth',
     'allauth.account',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'dj_rest_auth.registration',
     'apollo_account',
     'tasks',
+    'notifications', 
+    'drf_yasg',
 ]
 
 SITE_ID = 1
 APPEND_SLASH=True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -109,8 +112,11 @@ DATABASES = {
         'PORT': env('POSTGRES_PORT'),
         'OPTIONS': {
             'connect_timeout': 5,
+        },
+        'TEST': {
+            'MIRROR': 'default'
         }
-    }
+    }, 
 }
 
 
@@ -165,4 +171,23 @@ REST_FRAMEWORK = {
     ],
     'REGISTER_SERIALIZER': 'apollo_account.serializers.ApolloRegisterSerializer',
     # 'PAGE_SIZE': 15,
+}
+
+SWAGGER_SETTINGS = {
+    "SUPPORTED_SUBMIT_METHODS": [  # Specify which methods to enable in Swagger UI
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete'
+    ],
+    'SHOW_REQUEST_HEADERS': True,
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'USE_SESSION_AUTH': False,
 }

@@ -15,5 +15,5 @@ class Notification(models.Model):
     user = models.ForeignKey(ApolloUser, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     description = models.TextField()
-    type = models.CharField(max_length=1, choiches=Type.choices)
+    type = models.CharField(max_length=1, choices=Type.choices)
     read = models.BooleanField(default=False)

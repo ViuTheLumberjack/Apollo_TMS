@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .swagger import urlpatterns as swag
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('apollo_account.urls')),
     path('api/v1/', include('tasks.urls')),
-]
+] + swag

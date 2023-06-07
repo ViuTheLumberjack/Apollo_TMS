@@ -10,7 +10,10 @@ from . import models as models
 from . import serializers as serializers
 # Create your views here.
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.mixins.RetrieveModelMixin, 
+                  viewsets.mixins.UpdateModelMixin,
+                  viewsets.mixins.DestroyModelMixin,
+                  viewsets.GenericViewSet):
     queryset = models.ApolloUser.objects.all()
     authentication_classes = (TokenAuthentication, )
     permission_classes = (permissions.IsAuthenticated)  
