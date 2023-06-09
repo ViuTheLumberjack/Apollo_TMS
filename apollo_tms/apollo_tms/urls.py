@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('apollo_account.urls')),
     path('api/v1/', include('tasks.urls')),
+    path('api/v1/', include('notifications.urls')),
 ] + swag

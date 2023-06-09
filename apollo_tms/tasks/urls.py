@@ -1,10 +1,12 @@
 from rest_framework import routers
+from django.urls import path
 
 from . import views
 
 router = routers.SimpleRouter()
-router.register(r'collections', views.CollectionViewSet, basename='collection')
-router.register(r'collections/(?P<collection_id>\d+)/tasks', views.TaskViewSet)
-router.register(r'tasks', views.TaskViewSet, basename='task')
+router.register(r'collection', views.CollectionViewSet, basename='collection')
+router.register(r'collection/(?P<collection_id>\d+)/tasks', views.TaskViewSet)
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('tasks', views.PersonalTasksView.as_view(), name='personal_tasks'),
+] + router.urls

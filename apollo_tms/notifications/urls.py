@@ -1,6 +1,9 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from rest_framework.routers import SimpleRouter
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+from .views import NotificationView
+
+router = SimpleRouter()
+router.register('notifications', NotificationView, basename='notifications')
+
+urlpatterns = router.urls

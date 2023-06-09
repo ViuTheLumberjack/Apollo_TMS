@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from .models import Assignment
 
 class IsGroupMember(permissions.BasePermission):
     """
@@ -9,6 +10,16 @@ class IsGroupMember(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
         return obj.owner.members.contains(request.user)
+    
+class CanBeSeen(permissions.BasePermission):
+    """
+    Object-level permission to only allow members of a group that owns the collection to view it.
+    Assumes the model instance has an `owner` attribute.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        return obj.collection.members.contains(request.user)
     
 class IsGroupOwner(permissions.BasePermission):
     """
@@ -24,3 +35,16 @@ class IsGroupOwner(permissions.BasePermission):
 
         # Instance must have an attribute named `owner`.
         return obj.owner.owner == request.user
+    
+class IsAssignee(permissions.BasePermission):
+    """
+    Object-level permission to only allow people assign to a task to modify status.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        try:
+            assignment = Assignment.objects.get(user=request.user, task=obj)
+            return True
+        except Assignment.DoesNotExist:
+            return False 
