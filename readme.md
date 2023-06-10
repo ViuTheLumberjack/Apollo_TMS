@@ -21,10 +21,11 @@ POSTGRES_HOST=database
 POSTGRES_PORT
 SECRET_KEY
 ALLOWED_HOSTS=*
-API_URL=http://localhost:8000/api/
-CSRF_TRUSTED_ORIGINS=localhost
+API_URL=https://localhost:8000/api/
+CSRF_TRUSTED_ORIGINS=https://localhost
 ```
 The ones not specified are up to you. The SECRET_KEY is the Django secret key. The host is the name of the database service in the docker-compose file.
+`ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS` and `API_URL` are used for the CORS policy, thevalues specified are the ones used in development mode.
 
 2. Execute the command `docker-compose up` to start the project in development mode.
 
