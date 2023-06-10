@@ -1,0 +1,23 @@
+FROM python:3.8.10-alpine
+
+# Install dependencies
+COPY requirements.txt .
+
+RUN apk update && apk add python3-dev \
+                        gcc \
+                        libc-dev \
+                        libffi-dev
+RUN pip install --upgrade pip
+RUN pip install --user -r requirements.txt
+
+# Copy source code
+COPY . .
+
+#apply migrations
+RUN python manage.py makemigrations
+RUN python manage.py migrate
+
+RUN python manage.py collectstatic --noinput
+
+# Run the application
+RUN gunicorn apollo_tms.wsgi:application --log-file
