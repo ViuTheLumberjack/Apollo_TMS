@@ -122,7 +122,11 @@ class TaskViewSet(viewsets.ModelViewSet):
     @permission_classes((IsGroupOwner, ))
     def create(self, request, *args, **kwargs):
         """
-            Create a new task, and send a notification to all members of the organization
+            Create a new task, and send a notification to all members of the organization.
+            The DeadlineTask, RecurrentTask and OneTimeTask have extra attributes that need to be set:
+            - DeadlineTask: due_date
+            - RecurrentTask: end_date, frequency
+            - OneTimeTask: None
         """
         # check if the task has a parent and if the parent has a parent i.e. if the task is a subtask of a subtask. If so, return an error
         if 'parent_id' in request.data:
