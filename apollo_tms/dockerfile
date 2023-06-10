@@ -18,3 +18,6 @@ WORKDIR /apollo_tms
 #apply migrations
 RUN python manage.py makemigrations
 RUN python manage.py migrate
+
+# Run the application
+RUN gunicorn apollo_tms.wsgi:application --bind

@@ -60,6 +60,7 @@ The API can be accessed at [API Link](https://apollotms-production.up.railway.ap
 ## Documentation 📖
 
 The documentation is available at [Documentation](https://apollotms-production.up.railway.app/swagger).
+To set a token, perform a registration and a login, then copy the token received as response and click on the `Authorize` button on the top right corner of the page. Paste the token in the `Value` field as `Token {{key}}`. Now you can access the API.
 
 ## Authors ✒️
 
