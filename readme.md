@@ -53,6 +53,7 @@ The project is structured in the following way:
 ```
 
 The `apollo_tms` folder contains the Django project. The `apollo_account` folder contains the app for the account management. The `apollo_tms` folder contains the settings for the project. The `tasks` folder contains the app for the task managment. The `notifications` folder contains the app for the notifications management.
+Every Django app contains a `test.py` file which can be run using the `python manage.py test`. Every test file contains a demo of how to use the API.
 
 The `taskmanagment` folder can be ignored because is just an empty Vue project created to complete the stack in the `docker-compose.yml` file.
 
