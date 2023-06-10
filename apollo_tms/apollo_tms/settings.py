@@ -41,7 +41,7 @@ DEBUG = env("DEBUG")
 
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
-
+CORS_ALLOWED_ORIGINS = True
 
 # Application definition
 
@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'tasks',
     'notifications', 
     'drf_yasg',
+    'corsheaders'
 ]
 
 SITE_ID = 1
@@ -71,9 +72,10 @@ APPEND_SLASH=True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -199,6 +201,7 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
     'JSON_EDITOR': True,
     'PRODUCTION': True,
+    'HTTPS': True,
     'DEFAULT_FIELD_INSPECTORS': [
     'apollo_tms.inspector.PolymorphicSerializerInspector',
     'drf_yasg.inspectors.CamelCaseJSONFilter',
