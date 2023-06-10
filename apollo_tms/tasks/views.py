@@ -195,6 +195,8 @@ class TaskViewSet(viewsets.ModelViewSet):
         """
             Assign a task to a user, and send a notification to the user. Can be done by owner
         """
+        assert 'user_id' in request.data, 'user_id not provided'
+        
         task = self.get_object()
         user = ApolloUser.objects.get(id=request.data['user_id'])
         assignment = Assignment.objects.create(task=task, users=user)

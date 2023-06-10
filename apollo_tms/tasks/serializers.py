@@ -29,6 +29,8 @@ class DeadlineTaskInsertSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'progress', 'task_status', 'description', 'parent', 'due_date']
 
 class TaskInsertPolymorphicSerializer(PolymorphicSerializer):
+    base_serializer_class = TaskInsertSerializer
+
     model_serializer_mapping = {
         tasks.models.Task: TaskInsertSerializer,
         tasks.models.DeadlineTask: DeadlineTaskInsertSerializer,
@@ -90,6 +92,8 @@ class DeadlineTaskSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'description', 'task_status', 'created_at', 'start_date', 'updated_at', 'progress', 'subtasks', 'collection', 'due_date']
 
 class TaskPolymorphicSerializer(PolymorphicSerializer):
+    base_serializer_class = TaskSerializer
+
     model_serializer_mapping = {
         tasks.models.Task: TaskSerializer,
         tasks.models.DeadlineTask: DeadlineTaskSerializer,

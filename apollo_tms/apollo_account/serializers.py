@@ -45,6 +45,10 @@ class GroupSerializer(serializers.ModelSerializer):
         obj = Organization(**validated_data, owner=self.context['request'].user)
         obj.save()
         obj.members.add(obj.owner)
+        obj.save()
+        # create a default collection for the group
+        collection = Collection.objects.create(name=f'{obj.name}\'s collection', owner_id=obj.id, deletable=False)
+        collection.save()
         return obj
 
     class Meta:

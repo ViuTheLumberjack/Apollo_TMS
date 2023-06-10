@@ -15,12 +15,14 @@ import environ
 import os
 
 env = environ.Env(
+    DEBUG=(bool, False),
     POSTGRES_USER=str,
     POSTGRES_PASSWORD=str,
     POSTGRES_DB=str,
     POSTGRES_HOST=str,
     POSTGRES_PORT=str,
     SECRET_KEY=str,
+    ALLOWED_HOSTS=(list, []),
 )
 
 environ.Env.read_env(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..') + '/.env')
@@ -35,9 +37,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -190,4 +193,19 @@ SWAGGER_SETTINGS = {
         }
     },
     'USE_SESSION_AUTH': False,
+    'DEFAULT_FIELD_INSPECTORS': [
+    'apollo_tms.inspector.PolymorphicSerializerInspector',
+    'drf_yasg.inspectors.CamelCaseJSONFilter',
+    'drf_yasg.inspectors.ReferencingSerializerInspector',
+    'drf_yasg.inspectors.RelatedFieldInspector',
+    'drf_yasg.inspectors.ChoiceFieldInspector',
+    'drf_yasg.inspectors.FileFieldInspector',
+    'drf_yasg.inspectors.DictFieldInspector',
+    'drf_yasg.inspectors.JSONFieldInspector',
+    'drf_yasg.inspectors.HiddenFieldInspector',
+    'drf_yasg.inspectors.RecursiveFieldInspector',
+    'drf_yasg.inspectors.SerializerMethodFieldInspector',
+    'drf_yasg.inspectors.SimpleFieldInspector',
+    'drf_yasg.inspectors.StringDefaultFieldInspector',
+  ],
 }

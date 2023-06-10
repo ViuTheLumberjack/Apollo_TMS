@@ -8,6 +8,8 @@ from .permissions import IsOwnerOrSelf
 from . import models as models
 from . import serializers as serializers
 
+from notifications.models import Notification
+
 # Create your views here.
 
 class UserViewSet(viewsets.mixins.RetrieveModelMixin, 
@@ -69,7 +71,8 @@ class GroupViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         '''
-            Create a new group. Owner is the user who requested the creation
+            Create a new group. Owner is the user who requested the creation, 
+            every new group has a default collection.
         '''
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -165,6 +168,15 @@ class GroupMembersViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins
             raise serializers.ValidationError('Group is hidden')
         group.members.add(request.user)
         group.save()
+        # create a notification for the owner
+        Notification.objects.create(
+            user = group.owner,
+            type = 'N',
+            description = f'{request.user.email} joined the group {group.name}',
+            task = None,
+            collection = None,
+        )
+        
         return Response(data={'message': f'You Joined the group {group.name}'}, status=status.HTTP_201_CREATED)
     
     def list(self, request, *args, **kwargs):

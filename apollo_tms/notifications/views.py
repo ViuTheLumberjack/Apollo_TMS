@@ -7,6 +7,8 @@ from rest_framework.decorators import action
 from .serializers import NotificationSerializer
 from .permissions import IsAssignee
 
+from .models import Notification
+
 # Create your views here.
 class NotificationView(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     '''
@@ -18,8 +20,8 @@ class NotificationView(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     authentication_classes = (TokenAuthentication, )
 
     def get_queryset(self):
-        queryset = self.request.user.notifications.all()
-        if self.request.action == 'not_read':
+        queryset = Notification.objects.filter(user=self.request.user)
+        if self.request.resolver_match.view_name == 'notificationview-notread':
             queryset = queryset.filter(read=False)
         
         return queryset    
