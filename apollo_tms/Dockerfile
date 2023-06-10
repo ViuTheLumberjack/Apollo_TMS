@@ -13,4 +13,4 @@ RUN pip install --user -r requirements.txt
 # Copy source code
 COPY . .
 
-ENTRYPOINT [ "sh", "bin/start.sh" ]
+ENTRYPOINT [ "sh", "start.sh" ]
