@@ -23,6 +23,7 @@ env = environ.Env(
     POSTGRES_PORT=str,
     SECRET_KEY=str,
     ALLOWED_HOSTS=(list, []),
+    CSRF_TRUSTED_ORIGINS=(list, []),
 )
 
 environ.Env.read_env(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..') + '/.env')
@@ -42,7 +43,7 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = env("ALLOWED_HOSTS")
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
 # Application definition
 
