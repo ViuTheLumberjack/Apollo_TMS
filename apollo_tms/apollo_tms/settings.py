@@ -41,7 +41,7 @@ DEBUG = env("DEBUG")
 
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
-CORS_ALLOWED_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
