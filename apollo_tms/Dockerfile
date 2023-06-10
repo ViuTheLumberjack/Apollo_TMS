@@ -13,13 +13,4 @@ RUN pip install --user -r requirements.txt
 # Copy source code
 COPY . .
 
-ARG SECRET_KEY
-ENV SECRET_KEY=$SECRET_KEY
-#apply migrations
-RUN python manage.py makemigrations
-RUN python manage.py migrate
-
-RUN python manage.py collectstatic --noinput
-
-# Run the application
-RUN gunicorn apollo_tms.wsgi:application --log-file
+ENTRYPOINT [ "sh", "bin/start.sh" ]
