@@ -9,7 +9,6 @@ data
 # Django stuff:
 *.log
 *.pot
-staticfiles
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
