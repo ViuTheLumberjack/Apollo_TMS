@@ -54,11 +54,12 @@ The `taskmanagment` folder can be ignored because is just an empty Vue project c
 
 ## Deployment 📦
 
-The project has been deployed on Railway. The link is [Railway Link](https://apollo-tms.herokuapp.com/).
+The project has been deployed on Railway. The link is [Railway Link](https://apollotms-production.up.railway.app/).
+The API can be accessed at [API Link](https://apollotms-production.up.railway.app/api/v1/).
 
 ## Documentation 📖
 
-The documentation is available at [Documentation](https://apollo-tms.herokuapp.com/docs/).
+The documentation is available at [Documentation](https://apollotms-production.up.railway.app/swagger).
 
 ## Authors ✒️
 
