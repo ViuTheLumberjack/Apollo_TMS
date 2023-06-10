@@ -11,4 +11,10 @@ RUN pip install --upgrade pip
 RUN pip install --user -r requirements.txt
 
 # Copy source code
-#COPY . .
+COPY . .
+
+WORKDIR /apollo_tms
+
+#apply migrations
+RUN python manage.py makemigrations
+RUN python manage.py migrate
