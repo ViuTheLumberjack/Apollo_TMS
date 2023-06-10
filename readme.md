@@ -21,6 +21,8 @@ POSTGRES_HOST=database
 POSTGRES_PORT
 SECRET_KEY
 ALLOWED_HOSTS=*
+API_URL=http://localhost:8000/api/
+CSRF_TRUSTED_ORIGINS=localhost
 ```
 The ones not specified are up to you. The SECRET_KEY is the Django secret key. The host is the name of the database service in the docker-compose file.
 
