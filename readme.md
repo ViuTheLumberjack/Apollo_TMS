@@ -56,7 +56,7 @@ The `taskmanagment` folder can be ignored because is just an empty Vue project c
 
 The project has been deployed on Railway.
 The API Documentation can be accessed at [ApolloTMS/Swagger](https://apollotms-production.up.railway.app/swagger/).
-You can also find the Redoc Dicumentation under [ApolloTMS/Redoc](https://apollotms-production.up.railway.app/redoc/).
+You can also find the Redoc Documentation under [ApolloTMS/Redoc](https://apollotms-production.up.railway.app/redoc/).
 
 ## Documentation 📖
 
