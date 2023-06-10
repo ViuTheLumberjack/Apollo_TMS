@@ -20,6 +20,7 @@ POSTGRES_DB=taskmanager
 POSTGRES_HOST=database
 POSTGRES_PORT
 SECRET_KEY
+ALLOWED_HOSTS=*
 ```
 The ones not specified are up to you. The SECRET_KEY is the Django secret key. The host is the name of the database service in the docker-compose file.
 
