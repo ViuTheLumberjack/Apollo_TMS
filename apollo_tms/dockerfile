@@ -22,4 +22,4 @@ RUN python manage.py migrate
 RUN python manage.py collectstatic --noinput
 
 # Run the application
-RUN gunicorn apollo_tms.wsgi:application --bind
+RUN gunicorn apollo_tms.wsgi:application --log-file
