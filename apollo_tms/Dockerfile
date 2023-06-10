@@ -13,4 +13,8 @@ RUN pip install --user -r requirements.txt
 # Copy source code
 COPY . .
 
-ENTRYPOINT [ "sh", "./start.sh" ]
+RUN python manage.py makemigrations
+RUN python manage.py migrate
+
+RUN python manage.py collectstatic --noinput
+RUN /root/.local/bin/gunicorn apollo_tms.wsgi:application --bind=0.0.0.0:8000
